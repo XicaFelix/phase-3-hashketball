@@ -127,3 +127,63 @@ def game_hash
 end
 
 # Write code here
+def all_players
+  game_hash[:home][:players] + game_hash[:away][:players]
+end
+
+def correct_player name
+  all_players.find {|player| player[:player_name] == name}
+end
+
+def num_points_scored name
+ correct_player(name)[:points]
+end
+
+# puts num_points_scored("Jeff Adrien")
+
+def shoe_size name
+  shoe = correct_player(name)[:shoe]
+end
+
+# puts shoe_size ("Kemba Walker")
+
+def all_teams
+  teams = []
+  teams << game_hash[:home]
+  teams << game_hash[:away]
+  teams
+end
+
+def team_colors team_name
+  correct_team = all_teams.find {|team| team[:team_name]  == team_name}
+  correct_team[:colors]
+end
+
+# puts team_colors ('Brooklyn Nets')
+
+def team_names
+  game_hash.map {|home_away, team_info| team_info[:team_name]}
+end
+
+def player_numbers team_name
+  nums = []
+  correct_team = all_teams.find {|team| team[:team_name]  == team_name}
+  correct_team[:players].each {|player| nums << player[:number]}
+  nums
+end
+
+# p player_numbers("Brooklyn Nets")
+
+def player_stats name
+  correct_player name
+end
+
+# p player_stats('Kemba Walker')
+
+def big_shoe_rebounds 
+  players = []
+  all_players.each {|player| players << player[:shoe]}
+  biggest_shoe =all_players.find {|player| player[:shoe]== players.max}
+  biggest_shoe[:rebounds]
+end
+
